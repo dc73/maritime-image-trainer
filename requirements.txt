@@ -2,3 +2,6 @@ scrapegraphai
 playwright
 requests
 pillow
+torch
+torchvision
+rarfile

@@ -54,6 +54,23 @@ resume where they left off.
 - `data/dataset_index.json` — index by category.
 - `data/config.py` — categories, regions, source priority, schema (configurable).
 
+## PyTorch trainer (`trainer/`)
+Trains a vessel/thermal classifier (ResNet18/50 or EfficientNet-B0) over all raw
+sources:
+```bash
+.venv/bin/python -m trainer.train --epochs 2 --batch 128
+# checkpoint -> checkpoints/best_vessel_classifier.pt
+```
+- `trainer/dataset.py` — `ShipImageDataset` wraps `ship_data/raw/*` (label = source folder).
+- `trainer/models.py` — classification backbones + `ThermalSuperResNet` for LR->HR thermal.
+
+## Thermal datasets (rafariva/ThermalDatasets)
+- `ship_data/raw/thermal_tau2/` — 101 HR thermal images (TAU2, 640x512).
+- `ship_data/raw/thermal_challenge/` — 951 LR/MR/HR thermal images (Axis Domo P1290 /
+  Q2901-E / FC-6320 FLIR, PBVS super-res challenge set).
+- Kaggle `thermal-images-for-human-detection`: **not collected** (Kaggle login required —
+  no `~/.kaggle/kaggle.json` on this host). Record the auth gap; add credentials to collect it.
+
 ## Setup
 ```bash
 python3 -m venv .venv
@@ -63,6 +80,7 @@ python3 -m venv .venv
 xvfb-run -a .venv/bin/python scripts/scrape_ship_data.py
 .venv/bin/python scripts/process_ship_data.py
 .venv/bin/python -m watchkeeper_pipeline all
+.venv/bin/python -m trainer.train --epochs 2 --batch 128
 ```
 
 ## Tool availability note
