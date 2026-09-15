@@ -1,0 +1,4 @@
+scrapegraphai
+playwright
+requests
+pillow
