@@ -5,3 +5,5 @@ __pycache__/
 .playwright/
 data/__pycache__/
 watchkeeper_pipeline/__pycache__/
+caesar_extract/
+/tmp/
